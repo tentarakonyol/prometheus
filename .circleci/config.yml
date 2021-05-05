@@ -1,68 +1,88 @@
-version: 2.1
-orbs:
-  go: circleci/go@0.2.0
-  prometheus: prometheus/prometheus@0.11.0
-jobs:
-  test:
-    parameters:
-      go_version:
-        type: string
-      run_style_and_unused:
-        type: boolean
-        default: false
-      run_lint:
-        type: boolean
-        default: false
-      use_gomod_cache:
-        type: boolean
-        default: true
-    docker:
-      - image: circleci/golang:<< parameters.go_version >>
-    working_directory: /go/src/github.com/prometheus/client_golang
+version: 2
+jobs: # we now have TWO jobs, so that a workflow can coordinate them!
+  one: # This is our first job.
+    docker: # it uses the docker executor
+      - image: circleci/clojure:lein-2.9.5
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    # Steps are a list of commands to run inside the docker container above.
+    steps:
+      - checkout # this pulls code down from GitHub
+      - run: echo "A first hello" # This prints "A first hello" to stdout.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+  two: # This is our second job.
+    docker: # it runs inside a docker image, the same as above.
+      - image: circleci/clojure:lein-2.9.5
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - checkout
-      - when:
-          condition: << parameters.use_gomod_cache >>
-          steps:
-            - go/load-cache:
-                key: v1-go<< parameters.go_version >>
-      - run: make check_license test
-      - when:
-          condition: << parameters.run_lint >>
-          steps:
-            - run: make lint
-      - when:
-          condition: << parameters.run_style_and_unused >>
-          steps:
-            - run: make style unused
-      - when:
-          condition: << parameters.use_gomod_cache >>
-          steps:
-            - go/save-cache:
-                key: v1-go<< parameters.go_version >>
-      - store_test_results:
-          path: test-results
+      - run: echo "A more familiar hi" # We run a similar echo command to above.
+      - run: sleep 15 # and then sleep for 15 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+      - run: sleep 590 # a command telling the job to "sleep" for 25 seconds.
+# Under the workflows: map, we can coordinate our two jobs, defined above.
 workflows:
   version: 2
-  client_golang:
-    jobs:
-      # Refer to README.md for the currently supported versions.
-      - test:
-          name: go-1-13
-          go_version: "1.13"
-          run_lint: true
-      - test:
-          name: go-1-14
-          go_version: "1.14"
-          run_lint: true
-      - test:
-          name: go-1-15
-          go_version: "1.15"
-          run_lint: true
-      - test:
-          name: go-1-16
-          go_version: "1.16"
-          run_lint: true
-          # Style and unused/missing packages are only checked against
-          # the latest supported Go version.
-          run_style_and_unused: true
+  one_and_two: # this is the name of our workflow
+    jobs: # and here we list the jobs we are going to run.
+      - one
+      - two
